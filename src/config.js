@@ -6,7 +6,8 @@ const env = require('var');
  * @summary Configurations for our Mongo instance
  */
 let mongoConfig = {
-  connection: `mongodb://${env.MONGO_HOSTNAME}`,
+
+  connection: `mongodb://${env.MONGO_USERNAME}:${env.MONGO_PASSWORD}@${env.MONGO_HOSTNAME}:${env.MONGO_PORT}/${env.MONGO_DB_NAME}?authSource=${env.MONGO_AUTHSOURCE}`,
   db_name: env.MONGO_DB_NAME,
   options: {},
 };

@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const FHIRServer = require('@bluehalo/node-fhir-server-core');
 const logger = require('@bluehalo/node-fhir-server-core').loggers.get();
 const asyncHandler = require('./lib/async-handler');
@@ -10,6 +13,7 @@ const { CLIENT, CLIENT_DB } = require('./constants');
 
 let main = async function () {
   // Connect to mongo and pass any options here
+
   let [mongoErr, client] = await asyncHandler(
     mongoClient(mongoConfig.connection, mongoConfig.options)
   );
@@ -18,7 +22,9 @@ let main = async function () {
     console.error(mongoErr.message);
     console.error(mongoConfig.connection);
     process.exit(1);
-  }
+  } else {
+    logger.verbose('✅ Connected to MongoDB');
+  };
 
   // Save the client in another module so I can use it in my services
   globals.set(CLIENT, client);
