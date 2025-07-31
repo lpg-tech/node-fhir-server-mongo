@@ -16,7 +16,7 @@ key.pem
 # ENV Files
 .local-secrets/auth.secrets
 .env
-.env.json
+env.json
 
 # backup files
 *.bak
