@@ -11,19 +11,36 @@ const { fhirServerConfig, mongoConfig } = require('./config');
 
 const { CLIENT, CLIENT_DB } = require('./constants');
 
+
 let main = async function () {
   // Connect to mongo and pass any options here
 
+  // Add a timeout to fail fast if the database is not available
+  const connectionOptions = Object.assign({}, mongoConfig.options, {
+    serverSelectionTimeoutMS: 5000, // Fail after 5 seconds if no server is available
+  });
+
+
   let [mongoErr, client] = await asyncHandler(
-    mongoClient(mongoConfig.connection, mongoConfig.options)
+    mongoClient(mongoConfig.connection, connectionOptions)
   );
+
+  // If the client is created, we still need to verify the connection is alive
+  if (!mongoErr && client) {
+    // The driver connects lazily and may not throw an error until the first operation.
+    // We can ping the admin database to ensure a connection is established.
+    const [pingErr] = await asyncHandler(client.db('admin').command({ ping: 1 }));
+    // If the ping fails, we will treat that as the connection error.
+    if (pingErr) {
+      mongoErr = pingErr;
+    }
+  }
 
   if (mongoErr) {
     console.error(mongoErr.message);
-    console.error(mongoConfig.connection);
+    console.error('❌ Could not connect to the database. 🔍 Is the service running?'); console.error(mongoConfig.connection);
     process.exit(1);
-  } else {
-    logger.verbose('✅ Connected to MongoDB');
+  } else {logger.verbose('✅ Connected to MongoDB');
   };
 
   // Save the client in another module so I can use it in my services
