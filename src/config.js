@@ -19,7 +19,8 @@ let whitelist_env = (env.WHITELIST && env.WHITELIST.split(',').map((host) => hos
 // If there are multiple, keep them as an array
 let whitelist = whitelist_env && whitelist_env.length === 1 ? whitelist_env[0] : whitelist_env;
 
-let PROFILE_VERSIONS = [VERSIONS['4_0_0']];
+
+let PROFILE_VERSIONS = [VERSIONS['4_0_1']];
 
 /**
  * @name fhirServerConfig

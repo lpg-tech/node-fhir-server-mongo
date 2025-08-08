@@ -14,7 +14,8 @@ jobs:
 
     env:
       FHIR_CONTAINER_NAME: 'node-fhir-server-mongo-fhir-1'
-      VERSION: '4_0_0'
+
+      VERSION: '4_0_1'
       PORT: '3000'
 
     steps:
