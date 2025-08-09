@@ -60,7 +60,7 @@ let buildStu3SearchQuery = (args) => {
   let name = args['name'];
   let organization = args['organization'];
   let phone = args['phone'];
-  let phonetic = args['phonetic'];
+  // let phonetic = args['phonetic'];
   let telecom = args['telecom'];
 
   let query = {};
@@ -248,7 +248,7 @@ let buildDstu2SearchQuery = (args) => {
   let name = args['name'];
   let organization = args['organization'];
   let phone = args['phone'];
-  let phonetic = args['phonetic'];
+  // let phonetic = args['phonetic'];
   let telecom = args['telecom'];
 
   let query = {};
