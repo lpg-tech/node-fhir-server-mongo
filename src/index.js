@@ -9,7 +9,6 @@ const { fhirServerConfig, mongoConfig } = require('./config');
 const { CLIENT, CLIENT_DB } = require('./constants');
 
 let main = async function () {
-
   // Add a timeout to fail fast if the database is not available
   const connectionOptions = Object.assign({}, mongoConfig.options, {
     serverSelectionTimeoutMS: 5000, // Fail after 5 seconds if no server is available
