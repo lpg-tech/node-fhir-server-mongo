@@ -434,16 +434,16 @@ module.exports.search = (args) =>
     let Patient = getPatient(base_version);
 
     // Query our collection for this observation
+    logger.debug('Executing query: ', query);
     collection
       .find(query)
-      .then((data) => {
-        // Patient is a patient cursor, pull documents out before resolving
-        data.toArray().then((patients) => {
-          patients.forEach(function (element, i, returnArray) {
-            returnArray[i] = new Patient(element);
-          });
-          resolve(patients);
+      .toArray()
+      .then((patients) => {
+        // Process the array of patients
+        patients.forEach(function (element, i, returnArray) {
+          returnArray[i] = new Patient(element);
         });
+        resolve(patients);
       })
       .catch((err) => {
         logger.error('Error with Patient.search: ', err);
@@ -672,13 +672,12 @@ module.exports.searchByVersionId = (args, context) =>
       });
   });
 
+// Fix for history
 module.exports.history = (args, context) =>
   new Promise((resolve, reject) => {
     logger.info('Patient >>> history');
 
-    // Common search params
     let { base_version } = args;
-
     let query = {};
 
     switch (base_version) {
@@ -700,14 +699,12 @@ module.exports.history = (args, context) =>
     // Query our collection for this observation
     history_collection
       .find(query)
-      .then((data) => {
-        // Patient is a patient cursor, pull documents out before resolving
-        data.toArray().then((patients) => {
-          patients.forEach(function (element, i, returnArray) {
-            returnArray[i] = new Patient(element);
-          });
-          resolve(patients);
+      .toArray()
+      .then((patients) => {
+        patients.forEach(function (element, i, returnArray) {
+          returnArray[i] = new Patient(element);
         });
+        resolve(patients);
       })
       .catch((err) => {
         logger.error('Error with Patient.history: ', err);
@@ -741,21 +738,19 @@ module.exports.historyById = (args, context) =>
     let Patient = getPatient(base_version);
 
     // Query our collection for this observation
-    history_collection.find(query).then((data) => {
-      // Patient is a patient cursor, pull documents out before resolving
-      data
-        .toArray()
-        .then((patients) => {
-          patients.forEach(function (element, i, returnArray) {
-            returnArray[i] = new Patient(element);
-          });
-          resolve(patients);
-        })
-        .catch((err) => {
-          logger.error('Error with Patient.historyById: ', err);
-          return reject(handleError({ error: err }));
+    history_collection
+      .find(query)
+      .toArray()
+      .then((patients) => {
+        patients.forEach(function (element, i, returnArray) {
+          returnArray[i] = new Patient(element);
         });
-    });
+        resolve(patients);
+      })
+      .catch((err) => {
+        logger.error('Error with Patient.historyById: ', err);
+        return reject(handleError({ error: err }));
+      });
   });
 
 module.exports.patch = (args, context) =>
