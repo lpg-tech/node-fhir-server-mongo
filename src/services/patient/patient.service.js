@@ -443,7 +443,8 @@ module.exports.search = (args) =>
     let skip = (_page - 1) * _count;
 
     // Count total matching documents for Bundle.total
-    collection.countDocuments(query)
+    collection
+      .countDocuments(query)
       .then((total) => {
         return collection
           .find(query)
@@ -452,12 +453,12 @@ module.exports.search = (args) =>
           .toArray()
           .then((patients) => {
             // Wrap patients in Patient class
-            patients = patients.map(p => new Patient(p));
+            patients = patients.map((p) => new Patient(p));
 
             // Create bundle entries
-            const entries = patients.map(patient => ({
+            const entries = patients.map((patient) => ({
               resource: patient,
-              search: { mode: 'match' }
+              search: { mode: 'match' },
             }));
 
             // Construct bundle
@@ -476,7 +477,6 @@ module.exports.search = (args) =>
         reject(handleError({ error: err }));
       });
   });
-
 
 module.exports.searchById = (args) =>
   new Promise((resolve, reject) => {
