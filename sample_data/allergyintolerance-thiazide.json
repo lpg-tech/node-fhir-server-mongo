@@ -1,0 +1,83 @@
+{
+  "resourceType": "AllergyIntolerance",
+  "id": "CH-AllergyIntolerance-Usecase-2",
+  "text": {
+    "status": "extensions",
+    "div": "\u003Cdiv xmlns=\"http://www.w3.org/1999/xhtml\"\u003E\u003Cp class=\"res-header-id\"\u003E\u003Cb\u003EGenerated Narrative: AllergyIntolerance CH-AllergyIntolerance-Usecase-2\u003C/b\u003E\u003C/p\u003E\u003Ca name=\"CH-AllergyIntolerance-Usecase-2\"\u003E \u003C/a\u003E\u003Ca name=\"hcCH-AllergyIntolerance-Usecase-2\"\u003E \u003C/a\u003E\u003Ca name=\"CH-AllergyIntolerance-Usecase-2-en-US\"\u003E \u003C/a\u003E\u003Cp\u003E\u003Cb\u003EAbatement\u003C/b\u003E: 2022-02-07\u003C/p\u003E\u003Cp\u003E\u003Cb\u003EclinicalStatus\u003C/b\u003E: \u003Cspan title=\"Codes:{http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical active}\"\u003EActive\u003C/span\u003E\u003C/p\u003E\u003Cp\u003E\u003Cb\u003EverificationStatus\u003C/b\u003E: \u003Cspan title=\"Codes:{http://terminology.hl7.org/CodeSystem/allergyintolerance-verification unconfirmed}\"\u003EUnconfirmed\u003C/span\u003E\u003C/p\u003E\u003Cp\u003E\u003Cb\u003Etype\u003C/b\u003E: Allergy\u003C/p\u003E\u003Cp\u003E\u003Cb\u003Ecategory\u003C/b\u003E: Medication\u003C/p\u003E\u003Cp\u003E\u003Cb\u003Ecriticality\u003C/b\u003E: Low Risk\u003C/p\u003E\u003Cp\u003E\u003Cb\u003Ecode\u003C/b\u003E: \u003Cspan title=\"Codes:{http://snomed.info/sct 860765003}\"\u003EAllergy to thiazide (finding)\u003C/span\u003E\u003C/p\u003E\u003Cp\u003E\u003Cb\u003Epatient\u003C/b\u003E: \u003Ca href=\"Patient-ElisabethBroennimannByBFH.html\"\u003EElisabeth Brönnimann-Bertholet  Female, DoB: 1937-05-03\u003C/a\u003E\u003C/p\u003E\u003Ch3\u003EReactions\u003C/h3\u003E\u003Ctable class=\"grid\"\u003E\u003Ctr\u003E\u003Ctd style=\"display: none\"\u003E-\u003C/td\u003E\u003Ctd\u003E\u003Cb\u003ESubstance\u003C/b\u003E\u003C/td\u003E\u003Ctd\u003E\u003Cb\u003EManifestation\u003C/b\u003E\u003C/td\u003E\u003Ctd\u003E\u003Cb\u003ESeverity\u003C/b\u003E\u003C/td\u003E\u003Ctd\u003E\u003Cb\u003EExposureRoute\u003C/b\u003E\u003C/td\u003E\u003C/tr\u003E\u003Ctr\u003E\u003Ctd style=\"display: none\"\u003E*\u003C/td\u003E\u003Ctd\u003E\u003Cspan title=\"Codes:{http://snomed.info/sct 387525002}\"\u003EHydrochlorothiazide (substance)\u003C/span\u003E\u003C/td\u003E\u003Ctd\u003E\u003Cspan title=\"Codes:{http://snomed.info/sct 126485001}\"\u003EUrticaria (disorder)\u003C/span\u003E\u003C/td\u003E\u003Ctd\u003EModerate\u003C/td\u003E\u003Ctd\u003E\u003Cspan title=\"Codes:{http://snomed.info/sct 26643006}\"\u003EOral route (qualifier value)\u003C/span\u003E\u003C/td\u003E\u003C/tr\u003E\u003C/table\u003E\u003C/div\u003E"
+  },
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/allergyintolerance-abatement",
+      "valueDateTime": "2022-02-07"
+    }
+  ],
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+        "code": "unconfirmed",
+        "display": "Unconfirmed"
+      }
+    ]
+  },
+  "type": "allergy",
+  "category": [
+    "medication"
+  ],
+  "criticality": "low",
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "860765003",
+        "display": "Allergy to thiazide (finding)"
+      }
+    ]
+  },
+  "patient": {
+    "reference": "Patient/ElisabethBroennimannByBFH"
+  },
+  "reaction": [
+    {
+      "substance": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "387525002",
+            "display": "Hydrochlorothiazide (substance)"
+          }
+        ]
+      },
+      "manifestation": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "126485001",
+              "display": "Urticaria (disorder)"
+            }
+          ]
+        }
+      ],
+      "severity": "moderate",
+      "exposureRoute": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "26643006",
+            "display": "Oral route (qualifier value)"
+          }
+        ]
+      }
+    }
+  ]
+}

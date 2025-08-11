@@ -410,11 +410,15 @@ let buildDstu2SearchQuery = (args) => {
  * @param {*} context
  * @param {*} logger
  */
+
 module.exports.search = (args) =>
   new Promise((resolve, reject) => {
     logger.info('Patient >>> search');
 
-    let { base_version } = args;
+    let { base_version, _count = 10, _page = 1 } = args; // default pagination params
+    _count = parseInt(_count, 10);
+    _page = parseInt(_page, 10);
+
     let query = {};
 
     switch (base_version) {
@@ -433,23 +437,46 @@ module.exports.search = (args) =>
     let collection = db.collection(`${COLLECTION.PATIENT}_${base_version}`);
     let Patient = getPatient(base_version);
 
-    // Query our collection for this observation
     logger.debug('Executing query: ', query);
-    collection
-      .find(query)
-      .toArray()
-      .then((patients) => {
-        // Process the array of patients
-        patients.forEach(function (element, i, returnArray) {
-          returnArray[i] = new Patient(element);
-        });
-        resolve(patients);
+
+    // Calculate skip for pagination
+    let skip = (_page - 1) * _count;
+
+    // Count total matching documents for Bundle.total
+    collection.countDocuments(query)
+      .then((total) => {
+        return collection
+          .find(query)
+          .skip(skip)
+          .limit(_count)
+          .toArray()
+          .then((patients) => {
+            // Wrap patients in Patient class
+            patients = patients.map(p => new Patient(p));
+
+            // Create bundle entries
+            const entries = patients.map(patient => ({
+              resource: patient,
+              search: { mode: 'match' }
+            }));
+
+            // Construct bundle
+            const bundle = {
+              resourceType: 'Bundle',
+              type: 'searchset',
+              total,
+              entry: entries,
+            };
+
+            resolve(bundle);
+          });
       })
       .catch((err) => {
         logger.error('Error with Patient.search: ', err);
-        return reject(handleError({ error: err }));
+        reject(handleError({ error: err }));
       });
   });
+
 
 module.exports.searchById = (args) =>
   new Promise((resolve, reject) => {
